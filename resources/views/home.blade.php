@@ -4,7 +4,7 @@
 <div class="container">
     <pagina tamanho=9>
         <painel titulo="Dashboard" cor="orange">
-            Teste de conteúdo
+            <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
 
             <div class="row">
                 <div class="col-md-4">

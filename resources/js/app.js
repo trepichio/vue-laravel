@@ -24,6 +24,9 @@ Vue.component('topo', require('./components/Topo.vue').default);
 Vue.component('caixa', require('./components/Caixa.vue').default);
 Vue.component('pagina', require('./components/Pagina.vue').default);
 Vue.component('tabela-lista', require('./components/TabelaLista.vue').default);
+Vue.component('migalhas', require('./components/Migalhas.vue').default);
+Vue.component('modal', require('./components/modal/Modal.vue').default);
+Vue.component('modal-link', require('./components/modal/ModalLink.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
