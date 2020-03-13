@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <Pagina tamanho=9>
+    <pagina tamanho=9>
         <painel titulo="Dashboard" cor="orange">
             Teste de conteúdo
 
@@ -24,6 +24,6 @@
 
             </div>
         </painel>
-    </Pagina>
+    </pagina>
 </div>
 @endsection

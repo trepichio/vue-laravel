@@ -1,16 +1,33 @@
 <template>
     <div class="container">
-        <a v-if="criar" :href="criar">Criar</a>
+        <form class="form">
+            <a v-if="criar" :href="criar">Criar</a>
+            <div class="form-group float-right mb-2">
+                <input
+                    type="search"
+                    class="form-control"
+                    id="inputBuscar"
+                    placeholder="Buscar"
+                    v-model="buscar"
+                />
+            </div>
+        </form>
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
-                    <th v-for="titulo in titulos">{{ titulo }}</th>
+                    <th
+                        v-for="(titulo, index) in titulos"
+                        @click="ordenaColuna(index)"
+                        class="link"
+                    >
+                        {{ titulo }}
+                    </th>
 
                     <th v-if="detalhe || editar || deletar">Ação</th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(item, index) in itens">
+                <tr v-for="(item, index) in lista">
                     <td v-for="i in item">{{ i }}</td>
 
                     <td v-if="detalhe || editar || deletar">
@@ -61,17 +78,63 @@ export default {
         "editar",
         "detalhe",
         "deletar",
-        "token"
+        "token",
+        "ordem",
+        "ordemCol"
     ],
     data() {
-        return {};
+        return {
+            buscar: "",
+            ordemAux: this.ordem || "asc",
+            ordemAuxCol: this.ordemCol || 0
+        };
     },
     methods: {
         executaForm(index) {
             document.getElementById(index).submit();
+        },
+        ordenaColuna(coluna) {
+            this.ordemAuxCol = coluna;
+            if (String(this.ordemAux).toLowerCase() == "DESC") {
+                this.ordemAuxCol = "asc";
+            } else {
+                this.ordemAuxCol = "desc";
+            }
+        }
+    },
+    computed: {
+        lista() {
+            let ordem = this.ordemAux;
+            let ordemCol = this.ordemAuxCol;
+
+            ordem = ordem.toLowerCase();
+            ordemCol = parseInt(ordemCol);
+
+            if (ordem === "asc") {
+                this.itens.sort((a, b) => (a[ordemCol] > b[ordemCol] ? 1 : -1));
+            } else {
+                this.itens.sort((a, b) => (a[ordemCol] < b[ordemCol] ? 1 : -1));
+            }
+
+            return this.itens.filter(res => {
+                for (let k = 0; k < res.length; k++) {
+                    if (
+                        String(res[k])
+                            .toLowerCase()
+                            .indexOf(this.buscar.toLocaleLowerCase()) >= 0
+                    ) {
+                        return true;
+                    }
+                }
+                return false;
+            });
         }
     }
 };
 </script>
 
-<style media="screen" scoped></style>
+<style media="screen" scoped>
+.link {
+    cursor: pointer;
+}
+</style>
