@@ -16,10 +16,16 @@ class ArtigosController extends Controller
     {
         $listaMigalhas = json_encode([
             ["titulo"=>"Home","url"=>route('home')],
-            ["titulo"=>"Lista de Compras","url"=>""]
+            ["titulo"=>"Lista de Artigos","url"=>""]
         ]);
 
-        return view('admin.artigos.index', compact('listaMigalhas'));
+        $listaArtigos = json_encode([
+            ["id"=>1,"titulo"=>"LARAVEL 101","descricao"=>"CURSO DE LARAVEL", "autor"=>"Udemy","data"=>"2020-02-20"],
+            ["id"=>2,"titulo"=>"VueJS Avançado","descricao"=>"CURSO DE VueJS com Laravel", "autor"=>"Udacity", "data"=>"2020-03-03"]
+        ]);
+
+
+        return view('admin.artigos.index', compact('listaMigalhas', 'listaArtigos'));
     }
 
     /**

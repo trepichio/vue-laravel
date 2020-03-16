@@ -7,6 +7,8 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+import store from './store';
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -27,6 +29,7 @@ Vue.component('tabela-lista', require('./components/TabelaLista.vue').default);
 Vue.component('migalhas', require('./components/Migalhas.vue').default);
 Vue.component('modal', require('./components/modal/Modal.vue').default);
 Vue.component('modal-link', require('./components/modal/ModalLink.vue').default);
+Vue.component('formulario', require('./components/Formulario.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -36,4 +39,8 @@ Vue.component('modal-link', require('./components/modal/ModalLink.vue').default)
 
 const app = new Vue({
     el: '#app',
+    store,
+    mounted: () => {
+        document.querySelector('#app').style.display = 'block'
+    }
 });

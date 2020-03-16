@@ -4,47 +4,48 @@
 <Pagina tamanho=12>
   <painel titulo="Lista de Artigos" cor="blue">
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
-    <modal-link tipo='link' nome='meuModalTeste' titulo='Criar' css=''></modal-link>
-    <tabela-lista :titulos=" ['#', 'Titulo' , 'Descrição' , 'Autor' ]"
-      :itens="[[1,'LARAVEL 101', 'CURSO DE LARAVEL', 'Udemy'], [2,'VueJS Avançado', 'CURSO DE VueJS com Laravel', 'Udemy']]"
-      criar="#criar" detalhe="#detalhe" editar="#editar" deletar="#deletar" token="45646768765" ordem='DESC'
-      ordem-col=1>
+
+    <tabela-lista :titulos=" ['#', 'Titulo' , 'Descrição' , 'Autor', 'Data' ]" :itens="{{ $listaArtigos }}"
+      criar=" #criar" detalhe="#detalhe" editar="#editar" deletar="#deletar" token="45646768765" ordem='DESC'
+      ordem-col=1 modal="true">
     </tabela-lista>
+
   </painel>
 </Pagina>
 
-<modal nome="meuModalTeste">
-  <painel titulo="Adicionar">
-    <form>
-      <div class="form-group">
-        <label for="exampleFormControlInput1">Email address</label>
-        <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect1">Example select</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlSelect2">Example multiple select</label>
-        <select multiple class="form-control" id="exampleFormControlSelect2">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label for="exampleFormControlTextarea1">Example textarea</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-      </div>
-    </form>
-  </painel>
+<modal nome="adicionar" titulo="Adicionar">
+  <formulario id="formAdicionar" css="" action="#" method="put" enctype="multipart/form-data" token="123456">
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Título">
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input type="text" class="form-control" id="descricao" placeholder="Descrição">
+    </div>
+  </formulario>
+  <span slot="botoes">
+    <button form="fromAdicionar" type="submit" class="btn btn-info">Adicionar</button>
+  </span>
+</modal>
+
+<modal nome="editar" titulo="Editar">
+  <formulario id="formEditar" css="" action="#" method="put" enctype="multipart/form-data" token="123456">
+    <div class="form-group">
+      <label for="titulo">Título</label>
+      <input type="text" class="form-control" id="titulo" name="titulo" v-model="$store.state.item.titulo"
+        placeholder="Título">
+    </div>
+    <div class="form-group">
+      <label for="descricao">Descrição</label>
+      <input type="text" class="form-control" id="descricao" v-model="$store.state.item.descricao"
+        placeholder="Descrição">
+    </div>
+  </formulario>
+  <span slot="botoes"><button form="formEditar" type="submit" class="btn btn-info">Editar</button></span>
+</modal>
+
+<modal nome="detalhe" :titulo="$store.state.item.titulo">
+  <p>@{{$store.state.item.descricao}}</p>
 </modal>
 @endsection

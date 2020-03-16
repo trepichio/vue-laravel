@@ -1,7 +1,15 @@
 <template>
     <div class="container">
         <form class="form">
-            <a v-if="criar" :href="criar">Criar</a>
+            <a v-if="criar && !modal" :href="criar">Criar</a>
+            <modal-link
+                v-if="criar && modal"
+                tipo="link"
+                nome="adicionar"
+                titulo="Criar"
+                css=""
+            ></modal-link>
+
             <div class="form-group float-right mb-2">
                 <input
                     type="search"
@@ -43,8 +51,30 @@
                                 value="DELETE"
                             />
                             <input type="hidden" name="_token" :value="token" />
-                            <a v-if="editar" :href="editar">Editar | </a>
-                            <a v-if="detalhe" :href="detalhe">Detalhe | </a>
+                            <a v-if="editar && !modal" :href="editar"
+                                >Editar |
+                            </a>
+                            <modal-link
+                                v-if="editar && modal"
+                                tipo="link"
+                                nome="editar"
+                                titulo="Editar | "
+                                css=""
+                                :item="item"
+                            ></modal-link>
+
+                            <a v-if="detalhe && !modal" :href="detalhe"
+                                >Detalhe |
+                            </a>
+                            <modal-link
+                                v-if="detalhe && modal"
+                                tipo="link"
+                                nome="detalhe"
+                                titulo="Detalhe | "
+                                css=""
+                                :item="item"
+                            ></modal-link>
+
                             <a
                                 v-if="deletar"
                                 href="#"
@@ -52,14 +82,55 @@
                                 >Deletar</a
                             >
                         </form>
+
                         <span v-if="!token">
-                            <a v-if="editar" :href="editar">Editar | </a>
-                            <a v-if="detalhe" :href="detalhe">Detalhe | </a>
+                            <a v-if="editar && !modal" :href="editar"
+                                >Editar |
+                            </a>
+                            <modal-link
+                                v-if="editar && modal"
+                                tipo="link"
+                                nome="editar"
+                                titulo="Editar | "
+                                css=""
+                            ></modal-link>
+
+                            <a v-if="detalhe && !modal" :href="detalhe"
+                                >Detalhe |
+                            </a>
+                            <modal-link
+                                v-if="detalhe && modal"
+                                tipo="link"
+                                nome="detalhe"
+                                titulo="Detalhe | "
+                                css=""
+                            ></modal-link>
+
                             <a v-if="deletar" :href="deletar">Deletar</a>
                         </span>
+
                         <span v-if="token && !deletar">
-                            <a v-if="editar" :href="editar">Editar | </a>
-                            <a v-if="detalhe" :href="detalhe">Detalhe </a>
+                            <a v-if="editar && !modal" :href="editar"
+                                >Editar |
+                            </a>
+                            <modal-link
+                                v-if="editar && modal"
+                                tipo="link"
+                                nome="editar"
+                                titulo="Editar |"
+                                css=""
+                            ></modal-link>
+
+                            <a v-if="detalhe && !modal" :href="detalhe"
+                                >Detalhe
+                            </a>
+                            <modal-link
+                                v-if="detalhe && modal"
+                                tipo="link"
+                                nome="detalhe"
+                                titulo="Detalhe |"
+                                css=""
+                            ></modal-link>
                         </span>
                     </td>
                 </tr>
@@ -80,7 +151,8 @@ export default {
         "deletar",
         "token",
         "ordem",
-        "ordemCol"
+        "ordemCol",
+        "modal"
     ],
     data() {
         return {
@@ -111,23 +183,33 @@ export default {
             ordemCol = parseInt(ordemCol);
 
             if (ordem === "asc") {
-                this.itens.sort((a, b) => (a[ordemCol] > b[ordemCol] ? 1 : -1));
+                this.itens.sort((a, b) =>
+                    Array.from(a)[ordemCol] > Array.from(b)[ordemCol] ? 1 : -1
+                );
             } else {
-                this.itens.sort((a, b) => (a[ordemCol] < b[ordemCol] ? 1 : -1));
+                this.itens.sort((a, b) =>
+                    Array.from(a)[ordemCol] < Array.from(b)[ordemCol] ? 1 : -1
+                );
             }
 
-            return this.itens.filter(res => {
-                for (let k = 0; k < res.length; k++) {
-                    if (
-                        String(res[k])
-                            .toLowerCase()
-                            .indexOf(this.buscar.toLocaleLowerCase()) >= 0
-                    ) {
-                        return true;
+            if (this.buscar) {
+                return this.itens.filter(res => {
+                    res = Object.values(res);
+
+                    for (let k = 0; k < res.length; k++) {
+                        if (
+                            String(res[k])
+                                .toLowerCase()
+                                .indexOf(this.buscar.toLocaleLowerCase()) >= 0
+                        ) {
+                            return true;
+                        }
                     }
-                }
-                return false;
-            });
+                    return false;
+                });
+            }
+
+            return this.itens;
         }
     }
 };
