@@ -5,13 +5,13 @@
         :method="defineMethod"
         :enctype="enctype"
     >
+        <input v-if="token" type="hidden" name="_token" :value="token" />
         <input
             v-if="alterMethod"
             type="hidden"
-            name="_token"
+            name="_method"
             :value="alterMethod"
         />
-        <input v-if="token" type="hidden" name="_method" :value="token" />
         <slot></slot>
     </form>
 </template>

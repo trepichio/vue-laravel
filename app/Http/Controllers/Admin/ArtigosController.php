@@ -20,7 +20,7 @@ class ArtigosController extends Controller
         ]);
 
         $listaArtigos = json_encode([
-            ["id"=>1,"titulo"=>"LARAVEL 101","descricao"=>"CURSO DE LARAVEL", "autor"=>"Udemy","data"=>"2020-02-20"],
+            ["id"=>1,"titulo"=>"LARAVEL 101","descricao"=>"CURSO DE LARAVEL", "autor"=>"Udemy", "data"=>"2020-02-20"],
             ["id"=>2,"titulo"=>"VueJS Avançado","descricao"=>"CURSO DE VueJS com Laravel", "autor"=>"Udacity", "data"=>"2020-03-03"]
         ]);
 
@@ -46,7 +46,7 @@ class ArtigosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
