@@ -61,6 +61,7 @@
                                 titulo="Editar | "
                                 css=""
                                 :item="item"
+                                :url="editar"
                             ></modal-link>
 
                             <a v-if="detalhe && !modal" :href="detalhe"
@@ -73,6 +74,7 @@
                                 titulo="Detalhe | "
                                 css=""
                                 :item="item"
+                                :url="detalhe"
                             ></modal-link>
 
                             <a
@@ -93,6 +95,8 @@
                                 nome="editar"
                                 titulo="Editar | "
                                 css=""
+                                :item="item"
+                                :url="editar"
                             ></modal-link>
 
                             <a v-if="detalhe && !modal" :href="detalhe"
@@ -104,6 +108,7 @@
                                 nome="detalhe"
                                 titulo="Detalhe | "
                                 css=""
+                                :url="detalhe"
                             ></modal-link>
 
                             <a v-if="deletar" :href="deletar">Deletar</a>
@@ -119,6 +124,8 @@
                                 nome="editar"
                                 titulo="Editar |"
                                 css=""
+                                :item="item"
+                                :url="editar"
                             ></modal-link>
 
                             <a v-if="detalhe && !modal" :href="detalhe"
@@ -130,6 +137,7 @@
                                 nome="detalhe"
                                 titulo="Detalhe |"
                                 css=""
+                                :url="detalhe"
                             ></modal-link>
                         </span>
                     </td>

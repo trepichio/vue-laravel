@@ -68,13 +68,17 @@
 <script>
 export default {
     name: "ModalLink",
-    props: ["tipo", "nome", "titulo", "css", "item"],
+    props: ["tipo", "nome", "titulo", "css", "item", "url"],
     data() {
         return {};
     },
     methods: {
         preencheFormulario() {
-            this.$store.commit("setItem", this.item);
+            axios.get(this.url + this.item.id).then(res => {
+                console.log(res.data);
+                this.$store.commit("setItem", res.data);
+            });
+            // this.$store.commit("setItem", this.item);
         }
     },
     computed: {
