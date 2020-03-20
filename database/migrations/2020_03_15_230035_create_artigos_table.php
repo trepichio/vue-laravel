@@ -17,7 +17,6 @@ class CreateArtigosTable extends Migration
             $table->id();
             $table->string('titulo');
             $table->string('descricao');
-            $table->string('autor');
             $table->text('conteudo');
             $table->dateTime('data');
             $table->timestamps();

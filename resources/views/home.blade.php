@@ -14,11 +14,13 @@
 
                 </div>
                 <div class="col-md-4">
-                    <caixa qtd="2500" cor="blue" url="#" icone="ion ion-person-stalker" titulo="Usuarios"></caixa>
+                    <caixa qtd="2500" cor="blue" url="{{ route('usuarios.index') }}" icone="ion ion-person-stalker"
+                        titulo="Usuarios"></caixa>
 
                 </div>
                 <div class="col-md-4">
-                    <caixa qtd="5" cor="green" url="#" icone="ion ion-edit" titulo="Autores"></caixa>
+                    <caixa qtd="5" cor="green" url="{{ route('autores.index') }}" icone="ion ion-edit" titulo="Autores">
+                    </caixa>
 
                 </div>
 

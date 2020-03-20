@@ -18,19 +18,18 @@
       @endforeach
     </div>
 
-
-
   </div>
 
   @endif
   <painel titulo="Lista de Artigos" cor="blue">
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
-
-    <tabela-lista :titulos=" ['#', 'Titulo' , 'Descrição', 'Autor', 'Data' ]" :itens="{{ $listaArtigos }}"
-      criar=" #criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="#deletar" token="45646768765"
-      ordem='DESC' ordem-col=1 modal="true">
+    <tabela-lista :titulos=" ['#', 'Titulo' , 'Descrição', 'Autor', 'Data' ]" :itens="{{ json_encode($listaArtigos) }}"
+      criar=" #criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="/admin/artigos/"
+      token="{{ csrf_token() }}" ordem='DESC' ordem-col=1 modal="true">
     </tabela-lista>
-
+    <div class="d-flex justify-content-center">
+      {{ $listaArtigos}}
+    </div>
   </painel>
 </Pagina>
 
@@ -66,17 +65,15 @@
 </modal>
 
 <modal nome="editar" titulo="Editar">
-  <formulario id="formEditar" css="" :action="`admin/artigos/${$store.state.item.id}`" method="put" enctype=""
+  <formulario id="formEditar" css="" :action="'/admin/artigos/' + $store.state.item.id" method="put" enctype=""
     token="{{ csrf_token() }}">
     <div class="form-group">
       <label for="titulo">Título</label>
-      <input type="text" class="form-control" id="titulo" name="titulo" v-model="$store.state.item.titulo"
-        placeholder="Título">
+      <input type="text" class="form-control" id="titulo" name="titulo" v-model="$store.state.item.titulo">
     </div>
     <div class="form-group">
       <label for="descricao">Descrição</label>
-      <input type="text" class="form-control" id="descricao" name="descricao" v-model="$store.state.item.descricao"
-        placeholder="Descrição">
+      <input type="text" class="form-control" id="descricao" name="descricao" v-model="$store.state.item.descricao">
     </div>
     <div class="form-group">
       <label for="conteudo">Conteúdo</label>
@@ -84,16 +81,16 @@
     </div>
     <div class="form-group">
       <label for="autor">Autor</label>
-      <input type="text" class="form-control" id="autor" name="autor" v-model="$store.state.item.autor"
-        placeholder="Autor">
+      <input type="text" class="form-control" id="autor" name="autor" v-model="$store.state.item.autor">
     </div>
     <div class="form-group">
       <label for="data">Data</label>
-      <input type="datetime-local" class="form-control" id="data" name="data" v-model="$store.state.item.data"
-        value="{{ value('data') }}">
+      <input type="datetime-local" class="form-control" id="data" name="data" v-model="$store.state.item.data">
     </div>
   </formulario>
-  <span slot=" botoes"><button form="formEditar" type="submit" class="btn btn-info">Atualizar</button></span>
+  <span slot="botoes">
+    <button form="formEditar" type="submit" class="btn btn-info">Atualizar</button>
+  </span>
 </modal>
 
 <modal nome="detalhe" :titulo="$store.state.item.titulo">

@@ -3053,11 +3053,11 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (this.method.toLowerCase() === "put") {
-        return this.alterMethod = "put";
+        this.alterMethod = "put";
       }
 
       if (this.method.toLowerCase() === "delete") {
-        return this.alterMethod = "delete";
+        this.alterMethod = "delete";
       }
 
       return "post";
@@ -3331,6 +3331,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "TabelaLista",
   props: ["titulos", "itens", "criar", "editar", "detalhe", "deletar", "token", "ordem", "ordemCol", "modal"],
@@ -3359,23 +3369,24 @@ __webpack_require__.r(__webpack_exports__);
     lista: function lista() {
       var _this = this;
 
+      var lista = this.itens.data;
       var ordem = this.ordemAux;
       var ordemCol = this.ordemAuxCol;
       ordem = ordem.toLowerCase();
       ordemCol = parseInt(ordemCol);
 
       if (ordem === "asc") {
-        this.itens.sort(function (a, b) {
+        lista.sort(function (a, b) {
           return Array.from(a)[ordemCol] > Array.from(b)[ordemCol] ? 1 : -1;
         });
       } else {
-        this.itens.sort(function (a, b) {
+        lista.sort(function (a, b) {
           return Array.from(a)[ordemCol] < Array.from(b)[ordemCol] ? 1 : -1;
         });
       }
 
       if (this.buscar) {
-        return this.itens.filter(function (res) {
+        return lista.filter(function (res) {
           res = Object.values(res);
 
           for (var k = 0; k < res.length; k++) {
@@ -3388,7 +3399,7 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      return this.itens;
+      return lista;
     }
   }
 });
@@ -3582,13 +3593,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "ModalLink",
-  props: ["tipo", "nome", "titulo", "css", "item"],
+  props: ["tipo", "nome", "titulo", "css", "item", "url"],
   data: function data() {
     return {};
   },
   methods: {
     preencheFormulario: function preencheFormulario() {
-      this.$store.commit("setItem", this.item);
+      var _this = this;
+
+      axios.get(this.url + this.item.id).then(function (res) {
+        console.log(res.data);
+
+        _this.$store.commit("setItem", res.data);
+      }); // this.$store.commit("setItem", this.item);
     }
   },
   computed: {
@@ -39761,17 +39778,17 @@ var render = function() {
       }
     },
     [
-      _vm.alterMethod
+      _vm.token
         ? _c("input", {
             attrs: { type: "hidden", name: "_token" },
-            domProps: { value: _vm.alterMethod }
+            domProps: { value: _vm.token }
           })
         : _vm._e(),
       _vm._v(" "),
-      _vm.token
+      _vm.alterMethod
         ? _c("input", {
             attrs: { type: "hidden", name: "_method" },
-            domProps: { value: _vm.token }
+            domProps: { value: _vm.alterMethod }
           })
         : _vm._e(),
       _vm._v(" "),
@@ -40000,7 +40017,7 @@ var render = function() {
                           {
                             attrs: {
                               id: index,
-                              action: _vm.deletar,
+                              action: _vm.deletar + item.id,
                               method: "post"
                             }
                           },
@@ -40031,7 +40048,8 @@ var render = function() {
                                     nome: "editar",
                                     titulo: "Editar | ",
                                     css: "",
-                                    item: item
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e(),
@@ -40049,7 +40067,8 @@ var render = function() {
                                     nome: "detalhe",
                                     titulo: "Detalhe | ",
                                     css: "",
-                                    item: item
+                                    item: item,
+                                    url: _vm.detalhe
                                   }
                                 })
                               : _vm._e(),
@@ -40089,7 +40108,9 @@ var render = function() {
                                     tipo: "link",
                                     nome: "editar",
                                     titulo: "Editar | ",
-                                    css: ""
+                                    css: "",
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e(),
@@ -40106,7 +40127,8 @@ var render = function() {
                                     tipo: "link",
                                     nome: "detalhe",
                                     titulo: "Detalhe | ",
-                                    css: ""
+                                    css: "",
+                                    url: _vm.detalhe
                                   }
                                 })
                               : _vm._e(),
@@ -40137,7 +40159,9 @@ var render = function() {
                                     tipo: "link",
                                     nome: "editar",
                                     titulo: "Editar |",
-                                    css: ""
+                                    css: "",
+                                    item: item,
+                                    url: _vm.editar
                                   }
                                 })
                               : _vm._e(),
@@ -40154,7 +40178,9 @@ var render = function() {
                                     tipo: "link",
                                     nome: "detalhe",
                                     titulo: "Detalhe |",
-                                    css: ""
+                                    css: "",
+                                    item: item,
+                                    url: _vm.detalhe
                                   }
                                 })
                               : _vm._e()
@@ -53443,8 +53469,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(VueX__WEBPACK_IMPORTED_MODULE_1__
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\MBD-projects\vue-laravel\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\MBD-projects\vue-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Usuario\Documents\cursos\vue-laravel\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Usuario\Documents\cursos\vue-laravel\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

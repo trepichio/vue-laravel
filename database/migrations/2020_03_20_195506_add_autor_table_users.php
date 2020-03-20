@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UpdateArtigosTableAddAutor extends Migration
+class AddAutorTableUsers extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class UpdateArtigosTableAddAutor extends Migration
      */
     public function up()
     {
-        Schema::table('artigos', function (Blueprint $table) {
-            $table->string('autor');
+        Schema::table('users', function (Blueprint $table) {
+            $table->enum('autor',['S','N'])->default('N');
         });
     }
 
@@ -25,7 +25,7 @@ class UpdateArtigosTableAddAutor extends Migration
      */
     public function down()
     {
-        Schema::table('artigos', function (Blueprint $table) {
+        Schema::table('users', function (Blueprint $table) {
             $table->dropColumn('autor');
         });
     }

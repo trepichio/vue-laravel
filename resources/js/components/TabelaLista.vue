@@ -42,7 +42,7 @@
                         <form
                             :id="index"
                             v-if="deletar && token"
-                            :action="deletar"
+                            :action="deletar + item.id"
                             method="post"
                         >
                             <input
@@ -51,6 +51,7 @@
                                 value="DELETE"
                             />
                             <input type="hidden" name="_token" :value="token" />
+
                             <a v-if="editar && !modal" :href="editar"
                                 >Editar |
                             </a>
@@ -137,6 +138,7 @@
                                 nome="detalhe"
                                 titulo="Detalhe |"
                                 css=""
+                                :item="item"
                                 :url="detalhe"
                             ></modal-link>
                         </span>
@@ -184,6 +186,7 @@ export default {
     },
     computed: {
         lista() {
+            let lista = this.itens.data;
             let ordem = this.ordemAux;
             let ordemCol = this.ordemAuxCol;
 
@@ -191,17 +194,17 @@ export default {
             ordemCol = parseInt(ordemCol);
 
             if (ordem === "asc") {
-                this.itens.sort((a, b) =>
+                lista.sort((a, b) =>
                     Array.from(a)[ordemCol] > Array.from(b)[ordemCol] ? 1 : -1
                 );
             } else {
-                this.itens.sort((a, b) =>
+                lista.sort((a, b) =>
                     Array.from(a)[ordemCol] < Array.from(b)[ordemCol] ? 1 : -1
                 );
             }
 
             if (this.buscar) {
-                return this.itens.filter(res => {
+                return lista.filter(res => {
                     res = Object.values(res);
 
                     for (let k = 0; k < res.length; k++) {
@@ -217,7 +220,7 @@ export default {
                 });
             }
 
-            return this.itens;
+            return lista;
         }
     }
 };
