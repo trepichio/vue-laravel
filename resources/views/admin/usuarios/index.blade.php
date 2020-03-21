@@ -48,6 +48,13 @@
       <label for="password">Senha</label>
       <input type="password" class="form-control" id="password" name="password">
     </div>
+    <div class="form-group">
+      <label for="autor">Autor</label>
+      <select class="form-control" id="autor" name="autor">
+        <option {{ (old('autor') && old('autor') == 'N' ? 'selected' : '') }} value="N">Não</option>
+        <option {{ (old('autor') && old('autor') == 'S' ? 'selected' : '') }} value="S">Sim</option>
+      </select>
+    </div>
 
   </formulario>
   <span slot="botoes">
@@ -70,6 +77,13 @@
       <label for="password">Senha</label>
       <input type="password" class="form-control" id="password" name="password"
         v-model="$store.state.item.password"></input>
+    </div>
+    <div class="form-group">
+      <label for="autor">Autor</label>
+      <select class="form-control" id="autor" name="autor" v-model="$store.state.item.autor">
+        <option value="N">Não</option>
+        <option value="S">Sim</option>
+      </select>
     </div>
   </formulario>
   <span slot="botoes">

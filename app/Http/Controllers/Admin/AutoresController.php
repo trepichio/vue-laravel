@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\User;
+use Illuminate\Validation\Rule;
 
 class AutoresController extends Controller
 {
@@ -19,7 +21,7 @@ class AutoresController extends Controller
             ["titulo"=>"Lista de Autores","url"=>""]
         ]);
 
-        $listaModelo = User::select('id', 'name', 'email')->whereColumn('autor', 'S')->paginate(2);
+        $listaModelo = User::select('id', 'name', 'email')->where('autor', '=', 'S')->paginate(5);
 
 
         return view('admin.autores.index', compact('listaMigalhas', 'listaModelo'));
@@ -43,7 +45,23 @@ class AutoresController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+
+        $validacao = \Validator::make($data, [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8'],
+        ]);
+
+
+        if ($validacao->fails()) {
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        $data['password'] = bcrypt($data['password']);
+
+        User::create($data);
+        return redirect()->back();
     }
 
     /**
@@ -54,7 +72,7 @@ class AutoresController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::find($id);
     }
 
     /**
@@ -77,7 +95,42 @@ class AutoresController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $data = $request->all();
+
+        if (isset($data['password']) && $data['password'] !== "") {
+            $validacao = \Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($id)],
+                    'password' => ['required', 'string', 'min:8'
+                ],
+            ]);
+
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            $validacao = \Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => [
+                    'required',
+                    'string',
+                    'email',
+                    'max:255',
+                    Rule::unique('users')->ignore($id)
+                ]
+            ]);
+            unset($data['password']);
+        }
+
+        if ($validacao->fails()) {
+            return redirect()->back()->withErrors($validacao)->withInput();
+        }
+
+        User::find($id)->update($data);
+        return redirect()->back();
     }
 
     /**
@@ -88,6 +141,7 @@ class AutoresController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::find($id)->delete();
+        return redirect()->back();
     }
 }

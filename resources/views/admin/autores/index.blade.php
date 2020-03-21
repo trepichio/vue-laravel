@@ -21,11 +21,10 @@
   </div>
 
   @endif
-  <painel titulo="Lista de Usuarios" cor="blue">
+  <painel titulo="Lista de Autores" cor="blue">
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
     <tabela-lista :titulos=" ['#', 'Nome', 'E-mail']" :itens="{{ json_encode($listaModelo) }}" criar=" #criar"
-      detalhe="/admin/usuarios/" editar="/admin/autores /" deletar="/admin/autores/" token="{{ csrf_token() }}"
-      ordem='DESC' ordem-col=1 modal="true">
+      detalhe="/admin/usuarios/" editar="/admin/autores /" ordem='DESC' ordem-col=1 modal="true">
     </tabela-lista>
     <div class="d-flex justify-content-center">
       {{ $listaModelo}}
@@ -48,7 +47,13 @@
       <label for="password">Senha</label>
       <input type="password" class="form-control" id="password" name="password">
     </div>
-
+    <div class="form-group">
+      <label for="autor">Autor</label>
+      <select class="form-control" id="autor" name="autor">
+        <option {{ (old('autor') && old('autor') == 'N' ? 'selected' : '') }} value="N">Não</option>
+        <option {{ (old('autor') && old('autor') == 'S' ? 'selected' : '') }} value="S">Sim</option>
+      </select>
+    </div>
   </formulario>
   <span slot="botoes">
     <button form="formAdicionar" type="submit" class="btn btn-info">Adicionar</button>
@@ -56,7 +61,7 @@
 </modal>
 
 <modal nome="editar" titulo="Editar">
-  <formulario id="formEditar" css="" :action="'/admin/usuarios/' + $store.state.item.id" method="put" enctype=""
+  <formulario id="formEditar" css="" :action="'/admin/autores/' + $store.state.item.id" method="put" enctype=""
     token="{{ csrf_token() }}">
     <div class="form-group">
       <label for="name">Nome</label>
@@ -65,6 +70,13 @@
     <div class="form-group">
       <label for="email">E-mail</label>
       <input type="email" class="form-control" id="email" name="email" v-model="$store.state.item.email">
+    </div>
+    <div class="form-group">
+      <label for="autor">Autor</label>
+      <select class="form-control" id="autor" name="autor" v-model="$store.state.item.autor">
+        <option value="N">Não</option>
+        <option value="S">Sim</option>
+      </select>
     </div>
     <div class="form-group">
       <label for="password">Senha</label>
