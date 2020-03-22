@@ -24,7 +24,7 @@
   <painel titulo="Lista de Usuarios" cor="blue">
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
     <tabela-lista :titulos=" ['#', 'Nome', 'E-mail']" :itens="{{ json_encode($listaModelo) }}" criar=" #criar"
-      detalhe="/admin/usuarios/" editar="/admin/usuarios /" deletar="/admin/usuarios/" token="{{ csrf_token() }}"
+      detalhe="/admin/usuarios/" editar="/admin/usuarios/" deletar="/admin/usuarios/" token="{{ csrf_token() }}"
       ordem='DESC' ordem-col=1 modal="true">
     </tabela-lista>
     <div class="d-flex justify-content-center">

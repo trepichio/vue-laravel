@@ -9,7 +9,7 @@
             <i :class="icone"></i>
         </div>
         <a :href="url" class="small-box-footer">
-            More info <i class="fa fa-arrow-circle-right"></i>
+            Saiba mais <i class="fa fa-arrow-circle-right"></i>
         </a>
     </div>
 </template>

@@ -10,4 +10,9 @@ class Artigo extends Model
     use SoftDeletes;
 
     protected $fillable = ['titulo', 'descricao', 'conteudo','autor', 'data'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

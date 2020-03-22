@@ -24,7 +24,7 @@
   <painel titulo="Lista de Autores" cor="blue">
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
     <tabela-lista :titulos=" ['#', 'Nome', 'E-mail']" :itens="{{ json_encode($listaModelo) }}" criar=" #criar"
-      detalhe="/admin/usuarios/" editar="/admin/autores /" ordem='DESC' ordem-col=1 modal="true">
+      detalhe="/admin/autores/" editar="/admin/autores/" ordem='DESC' ordem-col=1 modal="true">
     </tabela-lista>
     <div class="d-flex justify-content-center">
       {{ $listaModelo}}
@@ -51,7 +51,7 @@
       <label for="autor">Autor</label>
       <select class="form-control" id="autor" name="autor">
         <option {{ (old('autor') && old('autor') == 'N' ? 'selected' : '') }} value="N">Não</option>
-        <option {{ (old('autor') && old('autor') == 'S' ? 'selected' : '') }} value="S">Sim</option>
+        <option {{ (old('autor') && old('autor') == 'S' ? 'selected' : 'selected') }} value="S">Sim</option>
       </select>
     </div>
   </formulario>

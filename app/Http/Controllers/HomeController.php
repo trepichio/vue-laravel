@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\User;
+use App\Artigo;
 
 class HomeController extends Controller
 {
@@ -27,6 +30,14 @@ class HomeController extends Controller
             ["titulo"=>"Home","url"=>""]
         ]);
 
-        return view('home', compact('listaMigalhas'));
+        $qtdUsuarios = User::count();
+        $qtdAutores = User::where('autor', 'S')->count();
+        $qtdArtigos = Artigo::count();
+
+        // $qtdAutores = json_encode(DB::table('users')->where('autor', '=', 'S')->count());
+        // $qtdArtigos = json_encode(DB::table('artigos')->count());
+
+
+        return view('home', compact('listaMigalhas', 'qtdUsuarios', 'qtdArtigos', 'qtdAutores'));
     }
 }

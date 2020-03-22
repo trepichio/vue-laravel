@@ -8,18 +8,19 @@
 
             <div class="row">
                 <div class="col-md-4">
-                    <caixa qtd="80" cor="orange" url="{{ route('artigos.index') }}" icone="fa fa-shopping-cart"
-                        titulo="Artigos">
+                    <caixa :qtd="{{$qtdArtigos}}" cor="orange" url="{{ route('artigos.index') }}"
+                        icone="fa fa-shopping-cart" titulo="Artigos">
                     </caixa>
 
                 </div>
                 <div class="col-md-4">
-                    <caixa qtd="2500" cor="blue" url="{{ route('usuarios.index') }}" icone="ion ion-person-stalker"
-                        titulo="Usuarios"></caixa>
+                    <caixa :qtd="{{$qtdUsuarios}}" cor="blue" url="{{ route('usuarios.index') }}"
+                        icone="ion ion-person-stalker" titulo="Usuarios"></caixa>
 
                 </div>
                 <div class="col-md-4">
-                    <caixa qtd="5" cor="green" url="{{ route('autores.index') }}" icone="ion ion-edit" titulo="Autores">
+                    <caixa :qtd="{{$qtdAutores}}" cor="green" url="{{ route('autores.index') }}" icone="ion ion-edit"
+                        titulo="Autores">
                     </caixa>
 
                 </div>
