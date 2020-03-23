@@ -1,6 +1,6 @@
 <template>
     <div class="card" :class="defineCor">
-        <div class="card-header">
+        <div v-if="titulo" class="card-header">
             {{ titulo }}
         </div>
 

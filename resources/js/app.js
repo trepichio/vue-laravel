@@ -35,6 +35,25 @@ Vue.component('modal', require('./components/modal/Modal.vue').default);
 Vue.component('modal-link', require('./components/modal/ModalLink.vue').default);
 Vue.component('formulario', require('./components/Formulario.vue').default);
 Vue.component('ckeditor', CKEditor.component);
+Vue.component('artigo-card', require('./components/ArtigoCard.vue').default);
+
+
+/**
+ * Vue filters
+ */
+Vue.filter('formataData', function (value) {
+    if (!value) return "";
+
+    value = value.toString();
+
+    if (value.split("-").length == 3) {
+        value = value.split("-");
+        return value[2] + "/" + value[1] + "/" + value[0];
+    }
+
+    return value;
+});
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
