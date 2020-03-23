@@ -32,7 +32,6 @@
     </div>
   </painel>
 </Pagina>
-
 <modal nome="adicionar" titulo="Adicionar">
   <formulario id="formAdicionar" css="" action="{{route('artigos.store')}}" method="post" enctype=""
     token="{{ csrf_token() }}">
@@ -47,10 +46,13 @@
         value="{{ old('descricao') }}">
     </div>
     <div class="form-group">
-      <label for="conteudo">Conteúdo</label>
-      <textarea class="form-control" id="conteudo" name="conteudo">{{ old('conteudo') }}</textarea>
+      <label for="addConteudo">Conteúdo</label>
+      {{-- <textarea class="form-control" id="conteudo" name="conteudo">{{ old('conteudo') }}</textarea> --}}
+      <ckeditor id="addConteudo" name="conteudo" tag-name="textarea" :editor="editor" :config="editorConfig"
+        value="{{ old('conteudo') }}">
+      </ckeditor>
     </div>
-    <div class="form-group">
+    <div class=" form-group">
       <label for="autor">Autor</label>
       <input type="text" class="form-control" id="autor" name="autor" placeholder="Autor" value="{{ old('autor') }}">
     </div>
@@ -77,7 +79,10 @@
     </div>
     <div class="form-group">
       <label for="conteudo">Conteúdo</label>
-      <textarea class="form-control" id="conteudo" name="conteudo" v-model="$store.state.item.conteudo"></textarea>
+      {{-- <textarea class="form-control" id="conteudo" name="conteudo" v-model="$store.state.item.conteudo"></textarea> --}}
+      <ckeditor id="editConteudo" name="conteudo" :editor="editor" v-model="$store.state.item.conteudo"
+        tag-name="textarea" :config="editorConfig">
+      </ckeditor>
     </div>
     <div class="form-group">
       <label for="autor">Autor</label>

@@ -8,7 +8,11 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import store from './store';
+import CKEditor from '@ckeditor/ckeditor5-vue';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+Vue.use(CKEditor);
+Vue.use(new ClassicEditor);
 
 /**
  * The following block of code may be used to automatically register your
@@ -30,6 +34,7 @@ Vue.component('migalhas', require('./components/Migalhas.vue').default);
 Vue.component('modal', require('./components/modal/Modal.vue').default);
 Vue.component('modal-link', require('./components/modal/ModalLink.vue').default);
 Vue.component('formulario', require('./components/Formulario.vue').default);
+Vue.component('ckeditor', CKEditor.component);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -42,5 +47,32 @@ const app = new Vue({
     store,
     mounted: () => {
         document.querySelector('#app').style.display = 'block'
+    },
+    data() {
+        return {
+            editor: ClassicEditor,
+            editorConfig: {
+                toolbar: [
+                    "bold",
+                    "italic",
+                    "blockQuote",
+                    "|",
+                    "heading",
+                    "indent",
+                    "outdent",
+                    "|",
+                    "redo",
+                    "undo",
+                    "|",
+                    "numberedList",
+                    "bulletedList",
+                    "|",
+                    "insertTable",
+                    "tableColumn",
+                    "tableRow",
+                    "mergeTableCells"
+                ]
+            }
+        };
     }
 });
