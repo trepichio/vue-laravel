@@ -24,7 +24,6 @@ class ArtigosController extends Controller
 
         $listaArtigos = Artigo::listaArtigos(5);
 
-
         return view('admin.artigos.index', compact('listaMigalhas', 'listaArtigos'));
     }
 
@@ -59,7 +58,10 @@ class ArtigosController extends Controller
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        Artigo::create($data);
+        $user = auth()->user();
+        $user->artigos()->create($data);
+        // Artigo::create($data);
+
         return redirect()->back();
     }
 
@@ -106,7 +108,10 @@ class ArtigosController extends Controller
             return redirect()->back()->withErrors($validacao)->withInput();
         }
 
-        Artigo::find($id)->update($data);
+        $user = auth()->user();
+        $user->artigos()->find($id)->update($data);
+        // Artigo::find($id)->update($data);
+
         return redirect()->back();
     }
 

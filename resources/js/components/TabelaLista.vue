@@ -195,11 +195,15 @@ export default {
 
             if (ordem === "asc") {
                 lista.sort((a, b) =>
-                    Array.from(a)[ordemCol] > Array.from(b)[ordemCol] ? 1 : -1
+                    Object.values(a)[ordemCol] > Object.values(b)[ordemCol]
+                        ? 1
+                        : -1
                 );
             } else {
                 lista.sort((a, b) =>
-                    Array.from(a)[ordemCol] < Array.from(b)[ordemCol] ? 1 : -1
+                    Object.values(a)[ordemCol] < Object.values(b)[ordemCol]
+                        ? 1
+                        : -1
                 );
             }
 

@@ -25,7 +25,7 @@
     <migalhas :lista="{{ $listaMigalhas }}"></migalhas>
     <tabela-lista :titulos=" ['#', 'Titulo' , 'Descrição', 'Autor', 'Data' ]" :itens="{{ json_encode($listaArtigos) }}"
       criar=" #criar" detalhe="/admin/artigos/" editar="/admin/artigos/" deletar="/admin/artigos/"
-      token="{{ csrf_token() }}" ordem='DESC' ordem-col=1 modal="true">
+      token="{{ csrf_token() }}" ordem='DESC' ordem-col=0 modal="true">
     </tabela-lista>
     <div class="d-flex justify-content-center">
       {{ $listaArtigos}}

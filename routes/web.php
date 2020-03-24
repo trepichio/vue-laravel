@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Artigo;
+use Illuminate\Http\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,26 @@ use App\Artigo;
 |
 */
 
-Route::get('/', function () {
-    $listaArtigos = Artigo::listaArtigosSite(3);
+Route::get('/', function (Request $req) {
+    // dd($req->busca);
+    if (isset($req->busca) && $req->busca !== '') {
+        $busca = $req->busca;
+        $listaArtigos =  Artigo::listaArtigosSite(3, $busca);
 
-    return view('site', compact('listaArtigos'));
+
+
+    /*         Artigo::orWhere('titulo', 'like', '%'.$busca.'%')
+                                    ->orWhere('descricao', 'like', '%'.$busca.'%')
+                                    ->paginate(3);
+     */
+    //busca
+    } else {
+        $listaArtigos = Artigo::listaArtigosSite(3);
+        $busca = "";
+    }
+
+
+    return view('site', compact('listaArtigos', 'busca'));
 })->name('site');
 
 Route::get('/artigo/{id}/{titulo?}', function ($id) {
